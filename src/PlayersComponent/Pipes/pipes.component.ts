@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule
   templateUrl: './pipes.component.html',
   styleUrls: ['./pipes.component.css']
 })
-export class AppSearchbar {
+export class AppPlayersComponentPipes {
   isDropdownVisible = false; // Controla la visibilidad del menú desplegable de filtros
   nameFilter: string = ''; // Almacena el texto del filtro de nombre
   ageFilter: number | null = null; // Almacena el filtro de edad; puede ser un número o nulo
