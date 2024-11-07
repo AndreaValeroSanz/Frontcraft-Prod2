@@ -1,0 +1,35 @@
+<!-- players.component.html -->
+<div class="row">
+  <!-- Componente de filtro de jugadores -->
+  <app-pipes (filterChange)="onFilterChange($event)"></app-pipes>
+
+  <div class="row" id="main-section">
+    <!-- Cuadrícula de tarjetas con jugadores -->
+    <div class="col-lg-10 grid-cards">
+      <app-card-grid [players]="filteredPlayers"></app-card-grid>
+    </div>
+
+    <!-- Panel para seleccionar jugador -->
+    <div class="col-lg-2">
+      <div class="player-selection">
+        <h4>Selecciona un jugador:</h4>
+        <div *ngFor="let player of players; let i = index">
+          <button class="select-player-button" (click)="selectPlayer(i)">
+            {{ player.name }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Flecha para desplazamiento hacia arriba -->
+  <div class="flecha-arriba" (click)="goUp()" title="Scroll Up">
+    <img src="assets/flecha-arriba.png" alt="Scroll up to explore">
+  </div>
+</div>
+
+<!-- Mostrar detalles del jugador seleccionado -->
+<app-detail *ngIf="selectedPlayerIndex !== null" 
+            [players]="players" 
+            [selectedPlayerIndex]="selectedPlayerIndex">
+</app-detail>

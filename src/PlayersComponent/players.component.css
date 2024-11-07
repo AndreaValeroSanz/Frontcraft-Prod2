@@ -1,0 +1,52 @@
+
+
+/* Contenedor principal para la flecha hacia arriba */
+.flecha-arriba {
+    position: relative;               /* Posición relativa para ajustar la flecha dentro del contenedor */
+    display: flex;                    /* Utiliza flexbox para alinear el contenido */
+    justify-content: center;          /* Centra horizontalmente la flecha dentro del contenedor */
+    align-items: flex-end;            /* Alinea la flecha en la parte inferior del contenedor */
+    height: 120px;                    /* Altura total del contenedor */
+    margin-bottom: 20px;              /* Espacio desde el borde inferior del contenedor */
+  }
+  
+  /* Estilo de la imagen de la flecha */
+  .flecha-arriba img {
+    width: 50px;                      /* Ancho de la imagen de la flecha */
+    height: auto;                     /* Mantiene la proporción de la altura */
+    opacity: 0.7;                     /* Opacidad inicial para dar un efecto de desvanecimiento */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transición suave para efectos de hover */
+  }
+  
+  .flecha-arriba img:hover {
+    opacity: 1;                       /* Aumenta la opacidad al hacer hover */
+    transform: translateY(10px);      /* Mueve la flecha ligeramente hacia abajo al hacer hover */
+  }
+  
+  .grid-cards{
+    position: relative;
+    display: grid;
+    justify-content: center;
+    align-items: flex-end;
+    margin-left: 100px;
+  }
+  /* Estilos para la selección de jugadores */
+.player-selection {
+  margin-top: 20px;
+}
+
+.select-player-button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.select-player-button:hover {
+  background-color: #f1f1f1;
+}
