@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CardGridModule } from '../card-grid/Card-grid.module';
 import { AppPlayersComponentPipes } from './Pipes/pipes.component';
+import { DetailComponentModule } from '../DetailComponent/detail.module';
 
 @Component({
   selector: 'app-players',
   standalone: true,
-  imports: [AppPlayersComponentPipes, CardGridModule],
+  imports: [AppPlayersComponentPipes, DetailComponentModule, CardGridModule],
   templateUrl: './players.component.html',
   styleUrl: './players.component.css'
 })
