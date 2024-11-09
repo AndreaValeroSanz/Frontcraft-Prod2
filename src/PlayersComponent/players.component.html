@@ -1,35 +1,30 @@
+<!-- Recorre cada jugador en el array "players" y crea una tarjeta para cada uno -->
+<div *ngFor="let player of players" class="card" #card (click)="toggleCardSize()">
+  <!-- Contenedor interno que permite el efecto de volteo 3D -->
+  <div class="card-inner">
 
-<div class="row">
-  <!-- Componente de filtro de jugadores -->
-  <app-pipes (filterChange)="onFilterChange($event)"></app-pipes>
-
-  <div class="row" id="main-section">
-    <!-- Cuadrícula de tarjetas con jugadores -->
-    <div class="col-lg-10 grid-cards">
-      <app-card-grid [players]="filteredPlayers"></app-card-grid>
+    <!-- Lado frontal de la tarjeta, que muestra la imagen del jugador -->
+    <div class="card-front">
+      <!-- Imagen del jugador, usando los datos del objeto "player" -->
+      <img class="image" [src]="player.image" [alt]="player.name + ' Card'">
     </div>
 
-    <!-- Panel para seleccionar jugador -->
-    <div class="col-lg-2">
-      <div class="player-selection">
-        <h4>Selecciona un jugador:</h4>
-        <div *ngFor="let player of players; let i = index">
-          <button class="select-player-button" (click)="selectPlayer(i)">
-            {{ player.name }}
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Lado trasero de la tarjeta, que muestra detalles del jugador -->
+    <div class="card-back">
+      <!-- Información del jugador -->
+      <h3>{{ player.name }}</h3>
+      <p>Puntos por partido: {{ player.ppg }}</p>
+      <p>Rebotes por partido: {{ player.rpg }}</p>
+      <p>Asistencias por partido: {{ player.apg }}</p>
+      <p>Altura: {{ player.height }}</p>
+      <p>Peso: {{ player.weight }}</p>
+      <p>Edad: {{ player.age }}</p>
 
-  <!-- Flecha para desplazamiento hacia arriba -->
-  <div class="flecha-arriba" (click)="goUp()" title="Scroll Up">
-    <img src="assets/flecha-arriba.png" alt="Scroll up to explore">
+      <!-- Botón que aparece al agrandar la tarjeta para ver un modal con jugadas destacadas -->
+      <button class="button" (click)="openModal()" *ngIf="isCardEnlarged">MEJORES JUGADAS</button>
+    </div>
   </div>
 </div>
 
-<!-- Mostrar detalles del jugador seleccionado -->
-<app-detail *ngIf="selectedPlayerIndex !== null" 
-            [players]="players" 
-            [selectedPlayerIndex]="selectedPlayerIndex">
-</app-detail>
+<!-- Modal de pantalla completa que muestra jugadas destacadas del jugador -->
+<app-fullscreen-modal *ngIf="showModal" (buttonClicked)="closeModal()"></app-fullscreen-modal>

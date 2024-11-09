@@ -1,10 +1,15 @@
 // detail.component.ts
 import { Component, Input } from '@angular/core';
+import { PlayersComponent } from '../PlayersComponent/players.component';
+import { CommonModule } from '@angular/common'; 
 
 @Component({
+ 
   selector: 'app-detail',
+  styleUrls: ['./detail.component.css'],
+  imports: [CommonModule],
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  standalone:true
 })
 export class DetailComponent {
   @Input() players: any[] = []; // Recibe el array completo de jugadores

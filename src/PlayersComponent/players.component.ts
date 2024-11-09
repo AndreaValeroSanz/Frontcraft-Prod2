@@ -1,26 +1,21 @@
-import { Component } from '@angular/core';
-import { CardGridModule } from '../card-grid/Card-grid.module';
+import { Component, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FullscreenModalComponent } from '../MediaComponent/fullscreen-modal/fullscreen-modal.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { AppPlayersComponentPipes } from './Pipes/pipes.component';
-import { DetailComponentModule } from '../DetailComponent/detail.module';
+import { HeroComponent } from './hero/hero.component';
+import { DetailComponent } from '../DetailComponent/detail.component';
+
 
 @Component({
   selector: 'app-players',
-  standalone: true,
-  imports: [AppPlayersComponentPipes, DetailComponentModule, CardGridModule],
-  templateUrl: './players.component.html',
-  styleUrl: './players.component.css'
+  styleUrls: ['./players.component.css'],
+  standalone: true, // Indica que este componente puede ser utilizado de manera independiente
+  imports: [DetailComponent, CommonModule, FullscreenModalComponent, NavBarComponent, AppPlayersComponentPipes, HeroComponent], // Importa otros componentes y módulos necesarios
+  templateUrl: './players.component.html' // Define la plantilla HTML del componente
 })
-export class PlayersArray {
+export class PlayersComponent {
 
-  //Funcion para que al pulsar la flecha, te redirecione hacia la parte de arriba de la pagina
-  goUp() {
-    const element = document.getElementById('hero-section');
-    if(element){
-      element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
-    }
-
-  }
-  // Array completo de jugadores (datos iniciales)
   players = [
     { name: 'Jayson Tatum', ppg: '27.0', rpg: '7.1', apg: '5.7', age: 25, height:'2.03 m' ,weight:'95 Kg', image: 'Players/playerCard1.webp' },
     { name: 'Kemba Walker', ppg: '25.0', rpg: '4.1', apg: '5.9', age: 29, height:'1.83 m' ,weight:'84 Kg', image: 'Players/walker.webp' },
@@ -33,18 +28,28 @@ export class PlayersArray {
     { name: 'Joel Embiid', ppg: '22.0', rpg: '3.5', apg: '4.5', age: 30, height:'2.13 m' ,weight:'127 Kg', image: 'Players/embiid.webp' }
   ];
 
-  // Jugadores filtrados para mostrar en CardGridComponent
-  filteredPlayers = [...this.players];
- // Índice del jugador seleccionado para mostrar detalles
- selectedPlayerIndex: number | null = null;
-  // Método para manejar el evento de filtro
-  onFilterChange(filter: { name: string, age: number | null }) {
-    this.filteredPlayers = this.players.filter(player =>
-      player.name.toLowerCase().includes(filter.name.toLowerCase()) &&
-      (filter.age === null || player.age === filter.age)
-    );
+
+  isCardEnlarged = false; // Estado para controlar si la tarjeta está agrandada
+  showModal = false; // Estado para controlar la visibilidad del modal
+  @ViewChild(DetailComponent, { static: false }) detailComponentRef?: DetailComponent; // Referencia al componente de detalle
+  @ViewChild('card') cardElement!: ElementRef; // Referencia al elemento de la tarjeta en el DOM
+ 
+
+ 
+  // Método para alternar el tamaño de la tarjeta
+  toggleCardSize() {
+    const card = this.cardElement.nativeElement;
+    card.classList.toggle('enlarged'); // Alterna la clase "enlarged" en el elemento de la tarjeta
+    this.isCardEnlarged = !this.isCardEnlarged; // Cambia el estado de isCardEnlarged
   }
-  selectPlayer(index: number) {
-    this.selectedPlayerIndex = index;
+
+  // Método para abrir el modal
+  openModal() {
+    this.showModal = true; // Cambia el estado para mostrar el modal
+  }
+
+  // Método para cerrar el modal
+  closeModal() {
+    this.showModal = false; // Cambia el estado para ocultar el modal
   }
 }
