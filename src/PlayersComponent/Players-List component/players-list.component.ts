@@ -34,7 +34,7 @@ ngOnInit(): void {
     }
 
 async onClickDelete(player:Player){
-    const responser = await this.PlayersService.deletePlayer(player);
+    const response = await this.PlayersService.deletePlayer(player);
     console.log(response);
 }
 }

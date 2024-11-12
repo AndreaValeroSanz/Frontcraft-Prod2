@@ -19,10 +19,10 @@ export class PlayersService {
 
   getPlayers(): Observable<Player[]>{
     const playerRef = collection(this.firestore, 'jugadores');
-    return collectionData(playerRef, {name: 'name'}) as Observable<Player[]>;
+    return collectionData(playerRef, {idField: 'name'}) as Observable<Player[]>;
   }
   deletePlayer(player: Player){
-    const playerDocRef = doc(this.firestore, 'jugadores/${player.id}');
+    const playerDocRef = doc(this.firestore, 'jugadores/${player.name}');
     return deleteDoc(playerDocRef);
   }
 }

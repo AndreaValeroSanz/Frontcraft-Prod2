@@ -1,6 +1,6 @@
 export default interface Player{
     
-    id: string;
+  
     name: string;
     ppg: string;
     rpg: string;
