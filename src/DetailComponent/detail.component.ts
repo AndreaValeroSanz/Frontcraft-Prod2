@@ -18,6 +18,8 @@ export class DetailComponent {
   get selectedPlayer() {
     return this.players[this.selectedPlayerIndex]; // Obtiene el jugador seleccionado por índice
   }
-
+  editarDatos(){
+    
+  }
   constructor() { }
 }

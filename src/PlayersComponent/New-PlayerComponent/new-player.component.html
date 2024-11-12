@@ -1,0 +1,35 @@
+<form [FormGroup]="formulario"="formulario"] (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label class="form-label">Name:</label>
+        <input type="text" class="form-control" formControlName="name">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">ppg:</label>
+        <textarea class="form-control" cols="30" rows="10" formControlName="ppg"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">rpg:</label>
+        <input type="text" class="form-control" formControlName="rpg">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">apg:</label>
+        <input type="text" class="form-control" formControlName="apg">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">age:</label>
+        <input type="text" class="form-control" formControlName="age">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">height:</label>
+        <input type="text" class="form-control" formControlName="height">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">weight:</label>
+        <input type="text" class="form-control" formControlName="weight">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">image:</label>
+        <input type="text" class="form-control" formControlName="image">
+    </div>
+    <input type="submit" value="Enviar" class="btn btn-info">
+</form>

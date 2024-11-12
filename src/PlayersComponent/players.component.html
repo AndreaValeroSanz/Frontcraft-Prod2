@@ -1,3 +1,4 @@
+
 <!-- Recorre cada jugador en el array "players" y crea una tarjeta para cada uno -->
 <div *ngFor="let player of players" class="card" #card (click)="toggleCardSize()">
   <!-- Contenedor interno que permite el efecto de volteo 3D -->
@@ -7,6 +8,7 @@
     <div class="card-front">
       <!-- Imagen del jugador, usando los datos del objeto "player" -->
       <img class="image" [src]="player.image" [alt]="player.name + ' Card'">
+      
     </div>
 
     <!-- Lado trasero de la tarjeta, que muestra detalles del jugador -->
@@ -19,9 +21,10 @@
       <p>Altura: {{ player.height }}</p>
       <p>Peso: {{ player.weight }}</p>
       <p>Edad: {{ player.age }}</p>
-
+         
       <!-- Botón que aparece al agrandar la tarjeta para ver un modal con jugadas destacadas -->
       <button class="button" (click)="openModal()" *ngIf="isCardEnlarged">MEJORES JUGADAS</button>
+
     </div>
   </div>
 </div>

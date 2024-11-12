@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FullscreenModalComponent } from '../MediaComponent/fullscreen-modal/fullscreen-modal.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -52,4 +52,5 @@ export class PlayersComponent {
   closeModal() {
     this.showModal = false; // Cambia el estado para ocultar el modal
   }
+ 
 }
