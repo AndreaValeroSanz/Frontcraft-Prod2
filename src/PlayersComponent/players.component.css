@@ -12,6 +12,7 @@
   transition: all 0.2s ease;              /* Transición suave para cambios de estado */
 }
 
+
 /* Contenedor interior de la tarjeta con efecto de volteo */
 .card-inner {
   position: relative;

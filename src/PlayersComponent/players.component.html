@@ -1,36 +1,83 @@
-
-<!-- Recorre cada jugador en el array "players" y crea una tarjeta para cada uno -->
-@for (player of players | async; track player) {
-  <div class="card" #card (click)="toggleCardSize()">
-    <!-- Contenedor interno que permite el efecto de volteo 3D -->
-    <div class="card-inner">
-  
-      <!-- Lado frontal de la tarjeta, que muestra la imagen del jugador -->
-      <div class="card-front">
-        <!-- Imagen del jugador, usando los datos del objeto "player" -->
-        <img class="image" [src]="player.image" [alt]="player.name + ' Card'">
-        
-      </div>
-  
-      <!-- Lado trasero de la tarjeta, que muestra detalles del jugador -->
-      <div class="card-back">
-        <!-- Información del jugador -->
-        <h3>{{ player.name }}</h3>
-        <p>Puntos por partido: {{ player.ppg }}</p>
-        <p>Rebotes por partido: {{ player.rpg }}</p>
-        <p>Asistencias por partido: {{ player.apg }}</p>
-        <p>Altura: {{ player.height }}</p>
-        <p>Peso: {{ player.weight }}</p>
-        <p>Edad: {{ player.age }}</p>
-           
-        <!-- Botón que aparece al agrandar la tarjeta para ver un modal con jugadas destacadas -->
-        <button class="button" (click)="openModal()" *ngIf="isCardEnlarged">MEJORES JUGADAS</button>
-  
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <!-- Recorre cada jugador en el array "players" y crea una tarjeta para cada uno -->
+    <div *ngFor="let player of players | async; trackBy: trackByFn" class="col-md-3 mb-4 d-flex align-items-stretch">
+      <div class="card" #card (click)="toggleCardSize()">
+        <!-- Contenedor interno que permite el efecto de volteo 3D -->
+        <div class="card-inner">
+          <!-- Lado frontal de la tarjeta, que muestra la imagen del jugador -->
+          <div class="card-front">
+            <img class="image" [src]="player.image" [alt]="player.name + ' Card'">
+          </div>
+          <!-- Lado trasero de la tarjeta, que muestra detalles del jugador -->
+          <div class="card-back">
+            <h3>{{ player.name }}</h3>
+            <p>Puntos por partido: {{ player.ppg }}</p>
+            <p>Rebotes por partido: {{ player.rpg }}</p>
+            <p>Asistencias por partido: {{ player.apg }}</p>
+            <p>Altura: {{ player.height }}</p>
+            <p>Peso: {{ player.weight }}</p>
+            <p>Edad: {{ player.age }}</p>
+            <button class="btn btn-primary" (click)="editPlayer(player, $event)">EDITAR</button>
+            <button class="btn btn-secondary mt-2" (click)="openModal()" *ngIf="isCardEnlarged">MEJORES JUGADAS</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</div>
 
-}
+
+<!-- Modal de edición de jugador -->
+
+
+<div *ngIf="isEditing" class="modal fade show d-block" tabindex="-1" [ngClass]="{ 'show': isEditing }" style="background-color: rgba(0,0,0,0.5);">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar Jugador</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="isEditing = false"></button>
+      </div>
+      <form (submit)="saveChanges()">
+        <div class="modal-body">
+          <!-- Campos de entrada -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input id="name" [(ngModel)]="editedPlayer.name" name="name" required class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="ppg" class="form-label">Puntos por partido</label>
+            <input id="ppg" [(ngModel)]="editedPlayer.ppg" name="ppg" required type="number" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="rpg" class="form-label">Rebotes por partido</label>
+            <input id="rpg" [(ngModel)]="editedPlayer.rpg" name="rpg" required type="number" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="apg" class="form-label">Asistencias por partido</label>
+            <input id="apg" [(ngModel)]="editedPlayer.apg" name="apg" required type="number" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="height" class="form-label">Altura</label>
+            <input id="height" [(ngModel)]="editedPlayer.height" name="height" required class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="weight" class="form-label">Peso</label>
+            <input id="weight" [(ngModel)]="editedPlayer.weight" name="weight" required class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="age" class="form-label">Edad</label>
+            <input id="age" [(ngModel)]="editedPlayer.age" name="age" required type="number" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="isEditing = false">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 <!-- Modal de pantalla completa que muestra jugadas destacadas del jugador -->
