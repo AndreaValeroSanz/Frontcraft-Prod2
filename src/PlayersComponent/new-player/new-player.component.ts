@@ -52,7 +52,7 @@ export class NewPlayerComponent  {
     };
 
     try {
-      const collectionRef = collection(this.firestore, 'players');
+      const collectionRef = collection(this.firestore, 'jugadores');
       await addDoc(collectionRef, playerData);
       console.log('Jugador agregado con éxito');
 
