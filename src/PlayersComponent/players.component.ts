@@ -1,6 +1,15 @@
 import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Firestore, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  updateDoc,
+  deleteDoc,
+  addDoc,
+  setDoc
+} from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { FullscreenModalComponent } from '../MediaComponent/fullscreen-modal/fullscreen-modal.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -14,12 +23,12 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./players.component.css'],
   standalone: true,
   imports: [
-    DetailComponent, 
-    CommonModule, 
-    FullscreenModalComponent, 
-    NavBarComponent, 
-    AppPlayersComponentPipes, 
-    HeroComponent, 
+    DetailComponent,
+    CommonModule,
+    FullscreenModalComponent,
+    NavBarComponent,
+    AppPlayersComponentPipes,
+    HeroComponent,
     FormsModule
   ],
   templateUrl: './players.component.html'
@@ -33,8 +42,8 @@ export class PlayersComponent {
   isEditing = false; // Estado para controlar si se está editando un jugador
 
   constructor() {
-    const aCollection = collection(this.firestore, 'jugadores');
-    this.players = collectionData(aCollection);
+    const aCollection = collection(this.firestore, '/jugadores');
+    this.players = collectionData(aCollection, {idField: 'id'});
   }
 
   isCardEnlarged = false; // Estado para controlar si la tarjeta está agrandada
@@ -65,26 +74,96 @@ export class PlayersComponent {
     this.isEditing = true;
     console.log('isEditing:', this.isEditing); // Verificar el cambio de estado
   }
-  
-  onClickDelete(player: any) {
+
+  async onClickDelete(player: any, event: MouseEvent) {
+    event.stopPropagation();
+    const confirmation = confirm('¿Estás seguro de que deseas eliminar este jugador?');
+    if (!confirmation) return;
+
+    try {
+      const playerDocRef = doc(this.firestore, `jugadores/${player.id}`);
+      await deleteDoc(playerDocRef);
+      console.log(`Jugador "${player.name}" eliminado con éxito`);
+    } catch (error) {
+      console.error('Error al eliminar jugador:', error);
     }
-  
-  
-  
+  }
+
+
+
+
 
   saveChanges() {
-    const playerDocRef = doc(this.firestore, `jugadores/${this.editedPlayer.name}`);
+    if (!this.editedPlayer || !this.editedPlayer.id) {
+      console.error('El jugador no tiene un ID válido para actualizar.');
+      return;
+    }
+
+    const playerDocRef = doc(this.firestore, `jugadores/${this.editedPlayer.id}`);
     updateDoc(playerDocRef, this.editedPlayer).then(() => {
-      this.isEditing = false;  // Cierra el formulario de edición
+      this.isEditing = false;
+      console.log('Jugador actualizado con éxito');
     }).catch((error) => {
-      console.error('Error al actualizar el jugador: ', error);
+      console.error('Error al actualizar el jugador:', error);
     });
   }
-  
-  
+
+
 
   // Definir la función trackByFn para evitar el re-renderizado completo de la lista
   trackByFn(index: number, player: any): string {
     return player.name; // Usamos el nombre del jugador como identificador único
   }
+//Agregar jugador
+  player = {
+    id: '',
+    name: '',
+    ppg: null,
+    rpg: null,
+    apg: null,
+    height: '',
+    weight: '',
+    age: null,
+    image: null,
+  };
+
+  isFormOpen = false;
+
+  openForm() {
+    this.isFormOpen = true;
+  }
+
+  closeForm() {
+    this.isFormOpen = false;
+  }
+
+
+
+async addPlayer() {
+  const playerId = (document.getElementById('new-name') as HTMLInputElement).value.trim(); // Usamos el nombre como ID
+  const playerData = {
+    id: playerId,
+    name: playerId,
+    ppg: +(document.getElementById('new-ppg') as HTMLInputElement).value,
+    rpg: +(document.getElementById('new-rpg') as HTMLInputElement).value,
+    apg: +(document.getElementById('new-apg') as HTMLInputElement).value,
+    height: (document.getElementById('new-height') as HTMLInputElement).value,
+    weight: (document.getElementById('new-weight') as HTMLInputElement).value,
+    age: +(document.getElementById('new-age') as HTMLInputElement).value,
+    image: (document.getElementById('new-image') as HTMLInputElement).value,
+  };
+
+  try {
+    const docRef = doc(this.firestore, 'jugadores', playerId);
+    await setDoc(docRef, playerData); // Crear o sobrescribir el documento con el id especificado
+    console.log('Jugador agregado con éxito');
+    this.closeForm();
+  } catch (error) {
+    console.error('Error al agregar jugador:', error);
+  }
+}
+
+
+
+
 }
