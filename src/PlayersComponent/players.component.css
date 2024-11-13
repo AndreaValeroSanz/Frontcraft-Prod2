@@ -12,6 +12,7 @@
   transition: all 0.2s ease;              /* Transición suave para cambios de estado */
 }
 
+
 /* Contenedor interior de la tarjeta con efecto de volteo */
 .card-inner {
   position: relative;
@@ -74,8 +75,8 @@ h6 {
 
 /* Estilo cuando la tarjeta se amplía */
 .card.enlarged {
-  width: 25vh;                        /* Ancho ampliado */
-  height: 35vh;                       /* Alto ampliado */
+  width: 30vh;                        /* Ancho ampliado */
+  height: 40vh;                       /* Alto ampliado */
 }
 
 /* Estilo del botón en el lado trasero */
@@ -86,10 +87,15 @@ h6 {
   bottom: 1px;                        /* Ubicación en la parte inferior */
   border-radius: 5px;                 /* Bordes redondeados */
   color: rgb(0, 0, 0);                /* Color del texto */
-  padding: 7px 10px;                  /* Espaciado interno */
+  padding: 4px 6px;                  /* Espaciado interno */
   text-align: center;                 /* Centra el texto */
   display: block;
-  font-size: 7px;                     /* Tamaño de fuente */
+  font-size: 6px;                     /* Tamaño de fuente */
   margin: 2px 1px;
   cursor: pointer;                    /* Muestra el cursor de puntero al pasar el mouse */
+}
+
+.button-group {
+  display: inline-flex;
+  gap: 3px;                           /* Espacio entre los botones*/
 }

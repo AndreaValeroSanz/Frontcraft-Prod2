@@ -7,6 +7,7 @@ import { PlayersComponent } from "../PlayersComponent/players.component";
 import { NavBarComponent } from '../PlayersComponent/nav-bar/nav-bar.component';
 import { HeroComponent } from '../PlayersComponent/hero/hero.component';
 import { AppPlayersComponentPipes } from '../PlayersComponent/Pipes/pipes.component';
+import {NewPlayerComponent} from '../PlayersComponent/new-player/new-player.component';
 
 
 
@@ -14,7 +15,7 @@ import { AppPlayersComponentPipes } from '../PlayersComponent/Pipes/pipes.compon
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AppPlayersComponentPipes, HeroComponent, PlayersModule, RouterOutlet, FullscreenModalComponent, PlayersComponent, NavBarComponent],
+  imports: [AppPlayersComponentPipes, HeroComponent, PlayersModule, RouterOutlet, FullscreenModalComponent, PlayersComponent, NavBarComponent, NewPlayerComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
