@@ -11,14 +11,17 @@
           </div>
           <!-- Lado trasero de la tarjeta, que muestra detalles del jugador -->
           <div class="card-back">
-            <h3>{{ player.name }}</h3>
+            <h5>{{ player.name }}</h5>
             <p>Puntos por partido: {{ player.ppg }}</p>
             <p>Rebotes por partido: {{ player.rpg }}</p>
             <p>Asistencias por partido: {{ player.apg }}</p>
             <p>Altura: {{ player.height }}</p>
             <p>Peso: {{ player.weight }}</p>
             <p>Edad: {{ player.age }}</p>
-            <button class="btn btn-primary" (click)="editPlayer(player, $event)">EDITAR</button>
+            <div class="button-group">
+              <button class="btn btn-outline-danger btn-inline" (click)="onClickDelete(player)">BORRAR</button>
+              <button class="btn btn-primary btn-inline" (click)="editPlayer(player, $event)">EDITAR</button>
+          </div>
             <button class="btn btn-secondary mt-2" (click)="openModal()" *ngIf="isCardEnlarged">MEJORES JUGADAS</button>
           </div>
         </div>

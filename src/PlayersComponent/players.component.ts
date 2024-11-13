@@ -66,7 +66,8 @@ export class PlayersComponent {
     console.log('isEditing:', this.isEditing); // Verificar el cambio de estado
   }
   
-  
+  onClickDelete(player: any) {
+    }
   
   
   
