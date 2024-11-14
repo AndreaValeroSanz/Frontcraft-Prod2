@@ -51,9 +51,9 @@ export class PlayersComponent {
   @ViewChild('card') cardElement!: ElementRef;
 
   // Método para alternar el tamaño de la tarjeta
-  toggleCardSize() {
-    const card = this.cardElement.nativeElement;
-    card.classList.toggle('enlarged');
+  toggleCardSize(id : any) {
+    let card = document.getElementById (id);
+    card?.classList.toggle('enlarged')
     this.isCardEnlarged = !this.isCardEnlarged;
   }
 

@@ -58,7 +58,7 @@
   <div class="row justify-content-center">
     <!-- Recorre cada jugador en el array "players" y crea una tarjeta para cada uno -->
     <div *ngFor="let player of players | async; trackBy: trackByFn" class="col-md-3 mb-4 d-flex align-items-stretch">
-      <div class="card" #card (click)="toggleCardSize()">
+      <div class="card" id="{{player.name}}" #card (click)="toggleCardSize(player.name)">
         <!-- Contenedor interno que permite el efecto de volteo 3D -->
         <div class="card-inner">
           <!-- Lado frontal de la tarjeta, que muestra la imagen del jugador -->
