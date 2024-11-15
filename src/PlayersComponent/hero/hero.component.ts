@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {RouterLink} from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 // Importa el decorador Component desde Angular core
 @Component({
@@ -17,17 +17,12 @@ export class HeroComponent {
 
   // Método para desplazarse suavemente a la sección "main-section" al explorar el equipo
   exploreTeam() {
-    const element = document.getElementById('main-section'); // Selecciona el elemento con id "main-section"
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });       // Desplazamiento suave hacia el elemento si existe
-    }
+    window.scrollBy(0, 1000); // Desplazarse 100px hacia abajo en el eje Y
   }
 
-  //  Método para desplazarse suavemente a la misma sección "main-section" en el caso de los jugadores
+
+  // Método para hacer scroll hacia abajo 100px
   scrollToPlayers() {
-    const element = document.getElementById('main-section'); // Selecciona el elemento con id "main-section"
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });       // Desplazamiento suave hacia el elemento si existe
-    }
+    window.scrollBy(0, 1000); // Desplazarse 100px hacia abajo en el eje Y
   }
 }

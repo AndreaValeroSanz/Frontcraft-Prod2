@@ -26,10 +26,10 @@ export class AppPlayersComponentPipes {
 
   applyFilter() {
     this.filterChange.emit({name: this.nameFilter, age: this.ageFilter});
-    // Emite el evento de cambio de filtro con los valores actuales de nombre y edad
-    const element = document.getElementById('main-section'); // Selecciona el elemento con id "main-section"
+    const element = document.getElementById('main-section');
     if (element) {
-      element.scrollIntoView({behavior: 'smooth'});       // Desplazamiento suave hacia el elemento si existe
+      element.scrollIntoView({behavior: 'smooth'});
     }
   }
+  
 }

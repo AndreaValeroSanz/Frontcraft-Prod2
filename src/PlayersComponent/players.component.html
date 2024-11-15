@@ -1,3 +1,27 @@
+<div class="container mt-5">
+  <!-- Contenedor de filtros de búsqueda -->
+  <div class="row mb-4">
+    <div class="col-md-5">
+      <input 
+        type="text" 
+        class="form-control" 
+        placeholder="Buscar jugador por nombre" 
+        [(ngModel)]="filterTerm"
+      />
+    </div>
+    <div class="col-md-5">
+      <input 
+        type="number" 
+        class="form-control" 
+        placeholder="Buscar jugador por edad" 
+        [(ngModel)]="filterAge"
+      />
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary w-100" (click)="filterPlayers()">Filtrar</button>
+    </div>
+  </div>
+
 <button class="open-form" (click)="openForm()">Añadir Jugador</button>
 
 <div *ngIf="isFormOpen" class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
@@ -56,31 +80,26 @@
 
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <!-- Recorre cada jugador en el array "players" y crea una tarjeta para cada uno -->
-    <div *ngFor="let player of players | async; trackBy: trackByFn" class="col-md-3 mb-4 d-flex align-items-stretch">
-      <div class="card" id="{{player.name}}" #card (click)="toggleCardSize(player.name)">
-        <!-- Contenedor interno que permite el efecto de volteo 3D -->
-        <div class="card-inner">
-          <!-- Lado frontal de la tarjeta, que muestra la imagen del jugador -->
-          <div class="card-front">
-            <img class="image" [src]="player.image" [alt]="player.name + ' Card'">
+      <!-- Recorre cada jugador en el array "filteredPlayers" para mostrar solo los jugadores filtrados -->
+  <div *ngFor="let player of filteredPlayers; trackBy: trackByFn" class="col-md-3 mb-4 d-flex align-items-stretch">
+    <div class="card" id="{{player.name}}" #card (click)="toggleCardSize(player.name)">
+      <div class="card-inner">
+        <div class="card-front">
+          <img class="image" [src]="player.image" [alt]="player.name + ' Card'">
+        </div>
+        <div class="card-back">
+          <h5>{{ player.name }}</h5>
+          <p>Puntos por partido: {{ player.ppg }}</p>
+          <p>Rebotes por partido: {{ player.rpg }}</p>
+          <p>Asistencias por partido: {{ player.apg }}</p>
+          <p>Altura: {{ player.height }}</p>
+          <p>Peso: {{ player.weight }}</p>
+          <p>Edad: {{ player.age }}</p>
+          <div class="button-group">
+            <button class="btn btn-outline-danger btn-inline" (click)="onClickDelete(player, $event)">BORRAR</button>
+            <button class="btn btn-primary btn-inline" (click)="editPlayer(player, $event)">EDITAR</button>
           </div>
-          <!-- Lado trasero de la tarjeta, que muestra detalles del jugador -->
-          <div class="card-back">
-            <h5>{{ player.name }}</h5>
-            <p>Puntos por partido: {{ player.ppg }}</p>
-            <p>Rebotes por partido: {{ player.rpg }}</p>
-            <p>Asistencias por partido: {{ player.apg }}</p>
-            <p>Altura: {{ player.height }}</p>
-            <p>Peso: {{ player.weight }}</p>
-            <p>Edad: {{ player.age }}</p>
-          
-            <div class="button-group">
-              <button class="btn btn-outline-danger btn-inline" (click)="onClickDelete(player, $event)">BORRAR</button>
-              <button class="btn btn-primary btn-inline" (click)="editPlayer(player, $event)">EDITAR</button>
-          </div>
-            <button class="btn btn-secondary mt-2" (click)="openModal()" *ngIf="isCardEnlarged">MEJORES JUGADAS</button>
-          </div>
+          <button class="btn btn-secondary mt-2" (click)="openModal()" *ngIf="isCardEnlarged">MEJORES JUGADAS</button>
         </div>
       </div>
     </div>

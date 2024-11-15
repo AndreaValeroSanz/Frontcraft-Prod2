@@ -18,6 +18,7 @@ import { HeroComponent } from './hero/hero.component';
 import { DetailComponent } from '../DetailComponent/detail.component';
 import { FormsModule } from '@angular/forms';
 
+
 @Component({
   selector: 'app-players',
   styleUrls: ['./players.component.css'],
@@ -29,7 +30,8 @@ import { FormsModule } from '@angular/forms';
     NavBarComponent,
     AppPlayersComponentPipes,
     HeroComponent,
-    FormsModule
+    FormsModule,
+    AppPlayersComponentPipes
   ],
   templateUrl: './players.component.html'
 })
@@ -38,12 +40,31 @@ export class PlayersComponent {
   firestore: Firestore = inject(Firestore);
   players: Observable<any[]>;
 
+  filterTerm: string = ''; // Propiedad para almacenar el término de búsqueda
+  filterAge: number | null = null;
+  filteredPlayers: any[] = []; // Propiedad para almacenar los jugadores filtrados
   editedPlayer: any; // Variable para almacenar los datos del jugador que se está editando
   isEditing = false; // Estado para controlar si se está editando un jugador
 
   constructor() {
     const aCollection = collection(this.firestore, '/jugadores');
     this.players = collectionData(aCollection, {idField: 'id'});
+  
+    // Suscripción para obtener los jugadores y aplicar el filtro inicial
+    this.players.subscribe(data => {
+      this.filteredPlayers = data;
+    });
+  }
+
+  // Método para filtrar jugadores por nombre y edad
+  filterPlayers() {
+    this.players.subscribe(data => {
+      this.filteredPlayers = data.filter(player => {
+        const matchesName = player.name.toLowerCase().includes(this.filterTerm.toLowerCase());
+        const matchesAge = this.filterAge === null || player.age === this.filterAge;
+        return matchesName && matchesAge;
+      });
+    });
   }
 
   isCardEnlarged = false; // Estado para controlar si la tarjeta está agrandada
